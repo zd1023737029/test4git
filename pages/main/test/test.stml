@@ -1,0 +1,57 @@
+<template name='tpl'>
+	<view class="test">
+		<text>123456</text>
+	</view>
+</template>
+<script>
+export default {
+	name: "test",
+	apiready() {
+		api.setStatusBarStyle({
+			style: "light",
+			color: "-"
+		});
+	},
+	data() {
+		return {
+			text: "Hello APICloud",
+			year: new Date().getFullYear()
+		};
+	},
+	computed: {
+		list() {
+			const apiNames = {
+				version: "引擎版本",
+				systemType: "系统类型",
+				systemVersion: "系统版本",
+				deviceModel: "设备型号",
+				deviceName: "设备名称",
+				operator: "运营商名称",
+				connectionType: "网络状态",
+				winName: "窗口名字",
+				winWidth: "窗口宽度",
+				winHeight: "窗口高度",
+				appId: "应用ID",
+				appName: "应用名称",
+				appVersion: "应用版本"
+			};
+
+			return Object.entries(apiNames).map(item => {
+				return [...item, api[item[0]]];
+			});
+		}
+	},
+	methods: {
+		handleClick(e) {
+			api.toast({
+				msg: this.data.text,
+				location: "middle"
+			});
+			api.openWin({
+				name: 'test',
+				url: '../test/test.stml',
+			})
+		}
+	}
+};
+</script>
